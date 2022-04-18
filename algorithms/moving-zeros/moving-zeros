@@ -1,0 +1,12 @@
+db = [1, 2, 3, 5, 0, 7, 6, 0, 0, 0, 5, 2, 0]
+k = 0
+
+for i in range(len(db)):
+    if db[i] != 0:
+        db[k] = db[i]
+        k += 1
+
+for j in range(k, len(db)):
+    db[j] = 0    
+
+print(db)
