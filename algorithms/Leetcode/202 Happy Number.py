@@ -5,7 +5,6 @@ class Solution:
             while n > 0:
                 n, digit = divmod(n, 10)
                 total_sum += digit**2
-                print(n, digit)
             return total_sum
 
         seen = set()
