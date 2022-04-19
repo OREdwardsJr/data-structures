@@ -1,19 +1,21 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        def get_next(n):
+        #Grab next number
+        #If n // 10 < 1 then it's a single digit therefor it is the next number
+        def get_next(n: int) -> int:
             total_sum = 0
             while n > 0:
                 n, digit = divmod(n, 10)
-                total_sum += digit**2
+                total_sum += digit ** 2
             return total_sum
 
-        seen = set()
-        while n != 1 and n not in seen:
-            seen.add(n)
+        # Check if n is already visited
+        visited = set()
+        while n != 1 and n not in visited:
+            visited.add(n)
             n = get_next(n)
 
         return n == 1
-
 
 print(Solution().isHappy(19))
 
