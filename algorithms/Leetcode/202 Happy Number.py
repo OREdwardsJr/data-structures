@@ -1,6 +1,23 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        #Grab next number
+        def get_next(n: int) -> int:
+            total_sum = 0
+            while n > 0:
+                n, digit = divmod(n, 10)
+                total_sum += digit**2
+            return total_sum
+
+        visited = set()
+        while n != 1 and n not in visited:
+            visited.add(n)
+            n = get_next(n)
+
+        return n == 1
+
+print(Solution().isHappy(2))
+
+"""
+#Grab next number
         #If n // 10 < 1 then it's a single digit therefor it is the next number
         def get_next(n: int) -> int:
             total_sum = 0
@@ -17,9 +34,8 @@ class Solution:
 
         return n == 1
 
-print(Solution().isHappy(19))
 
-"""
+
 EASY 
 
 Write an algorithm to determine if a number n is happy.
