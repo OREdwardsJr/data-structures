@@ -1,2 +1,2 @@
-# data-structures
-List of created data structures for personal usage.
+# algorithms
+A repository of created algorithms for personal usage.
