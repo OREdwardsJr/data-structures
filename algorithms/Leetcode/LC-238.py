@@ -1,6 +1,3 @@
-from re import I
-
-
 class Solution:
     def moveZeroes(self, nums: list[int]) -> None:
         i = 0
