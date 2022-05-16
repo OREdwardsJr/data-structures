@@ -124,9 +124,9 @@ class BSTNode:
         else:
             if not self.left and not self.right:
                 return None
-            elif self.left is None:
+            elif not self.left:
                 return self.right
-            elif self.right is None:
+            elif not self.right:
                 return self.left
             else:
                 min_val = self.right.find_min()
