@@ -1,66 +1,43 @@
-'''
-• Add Child
-• Search
-• Traverse
-    • In-order
-    • Pre-order
-    • Post-order
-• Delete
-• Find Max
-• Find Min
-'''
-
-class BinarySearchTreeNode():
-    def __init__(self, data=None):
-        self.data = data
+class BSTNode:
+    def __init__(self, elem) -> None:
+        self.data = elem
         self.left = None
         self.right = None
 
     def add_child(self, val) -> None:
-        if val == self.data:
-            return 
-        elif val < self.data:
+        if self.data == val:
+            return
+
+        if val < self.data:
             if self.left:
                 self.left.add_child(val)
             else:
-                self.left = BinarySearchTreeNode(val)
+                self.left = BSTNode(val)
         elif val > self.data:
             if self.right:
                 self.right.add_child(val)
             else:
-                self.right = BinarySearchTreeNode(val)
-
-    def search(self, val) -> bool:
-        if val == self.data:
-            return True
-        elif val < self.data:
-            if self.left:
-                return self.left.search(val)
-            else:
-                return False
-        elif val > self.data:
-            if self.right:
-                return self.right.search(val)
-            else:
-                return False
+                self.right = BSTNode(val)
 
     def in_order_traversal(self) -> list:
         elements = []
-        
+
         if self.left:
             elements += self.left.in_order_traversal()
+
         elements.append(self.data)
+
         if self.right:
             elements += self.right.in_order_traversal()
 
-        return elements 
+        return elements
 
     def pre_order_traversal(self) -> list:
-        elements = []
+        elements = [self.data]
 
-        elements.append(self.data)
         if self.left:
             elements += self.left.pre_order_traversal()
+
         if self.right:
             elements += self.right.pre_order_traversal()
 
@@ -68,73 +45,119 @@ class BinarySearchTreeNode():
 
     def post_order_traversal(self) -> list:
         elements = []
+
         if self.left:
             elements += self.left.post_order_traversal()
+
         if self.right:
             elements += self.right.post_order_traversal()
+
         elements.append(self.data)
 
-        return elements 
+        return elements
 
-    def delete(self, val) -> None:
-        if val < self.data:
+    def level_order_traversal(self) -> list:
+        q = [self]
+        elements = []
+
+        # Append Node to queue
+        while q:
+
+            # Pop Node from queue
+            temp = q.pop(0)
+
+            # Append Node.data to elements
+            elements.append(temp.data)
+            # Append Node.left
+            if temp.left:
+                q.append(temp.left)
+            # Append Node.right
+            if temp.right:
+                q.append(temp.right)
+
+        return elements
+
+    def find_min(self) -> int | str:
+        if self.left:
+            return self.left.find_min()
+        else:
+            return self.data
+
+    def find_max(self) -> int | str:
+        if self.right:
+            return self.right.find_max()
+        else:
+            return self.data
+
+    def find_height(self, root) -> int:
+        if not root:
+            return 0
+
+        l_depth = self.find_height(root.left)
+        r_depth = self.find_height(root.right)
+
+        return max(l_depth, r_depth) + 1
+
+    def find(self, elem) -> bool:
+        if elem == self.data:
+            return True
+
+        if elem < self.data:
             if self.left:
-                self.left = self.left.delete(val)
-        elif val > self.data:
+                return self.left.find(elem)
+            else:
+                return False
+
+        if elem > self.data:
             if self.right:
-                self.right = self.right.delete(val)
-        else: #val == self.data
-            if self.left is None and self.right is None:
+                return self.right.find(elem)
+            else:
+                return False
+
+    def delete(self, elem) -> None:
+        if elem < self.data:
+            if self.left:
+                self.left = self.left.delete(elem)
+        elif elem > self.data:
+            if self.right:
+                self.right = self.right.delete(elem)
+        else:
+            if not self.left and not self.right:
                 return None
             elif self.left is None:
                 return self.right
             elif self.right is None:
                 return self.left
-            else: #self.left != None and self.right != None
+            else:
                 min_val = self.right.find_min()
                 self.data = min_val
                 self.right = self.right.delete(min_val)
 
         return self
 
-    def find_min(self):
-        if self.left:
-            return self.left.find_min()
-        else:
-            return self.data
+    def swap_nodes(self, elem1, elem2) -> None:
+        pass
 
-    def find_max(self):
-        if self.right:
-            return self.right.find_max()
-        else:
-            return self.data
 
-def build_tree(data: list) -> object:
-    root = BinarySearchTreeNode(data.pop(0))
+def build_tree(arr: list) -> BSTNode:
+    root = BSTNode(arr.pop(0))
 
-    for elem in data:
+    for elem in arr:
         root.add_child(elem)
 
     return root
 
-countries = ["India","Pakistan","Germany", "USA","China","India","UK","USA"]
-country_tree = build_tree(countries)
 
-print(f"Original list: {countries}")
-print(f"In order traversal: {country_tree.in_order_traversal()}") #in order
-print(f"Pre-order traversal: {country_tree.pre_order_traversal()}") #pre-order
-print(f"Post-order traversal: {country_tree.post_order_traversal()}") #post-order
+nums = [25, 20, 36, 10, 22, 30, 40, 12, 28, 5, 48, 38, 8, 45, 1, 50]
+num_tree = build_tree(nums)
 
-#add_child
-country_tree.add_child('Canada')
-print(f"Canada added to list: {country_tree.in_order_traversal()}") 
-
-
-print(f"USA is in countries list: {country_tree.search('USA')}") #search - True
-print(f"Japan is in countries list: {country_tree.search('Japan')}") #search - False
-print(f"Country tree min: {country_tree.find_min()}") #find min
-print(f"Country tree max: {country_tree.find_max()}") #find max
-
-#delete
-country_tree.delete("Canada")
-print(f"Build tree after delete Canada: {country_tree.in_order_traversal()}")
+print(f"In order traversal: {num_tree.in_order_traversal()}")
+print(f"Pre order traversal: {num_tree.pre_order_traversal()}")
+print(f"Post order traversal: {num_tree.post_order_traversal()}")
+print(f"Level order traversal: {num_tree.level_order_traversal()}")
+print(f"Min node is: {num_tree.find_min()}")
+print(f"Max node is: {num_tree.find_max()}")
+print(f"Height of tree is: {num_tree.find_height(num_tree)}")
+print(f"Searching for 20: {num_tree.find(20)}")
+print(f"Searching for 200: {num_tree.find(200)}")
+print(f"Delete 36 {num_tree.delete(36)}: {num_tree.in_order_traversal()}")
