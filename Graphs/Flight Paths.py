@@ -2,9 +2,6 @@
 CREATE A CYCLIC, DIRECTED GRAPH REPRESENTING VARIOUS FLIGHT PATHS. 
 """
 
-from turtle import st
-
-
 routes = [
     ("Seattle", "Los Angeles"),
     ("Seattle", "New York"),
@@ -23,16 +20,26 @@ class Graph:
         self.graph = {}
 
         for start, end in edges:
-            if start not in self.graph:
-                self.graph[start] = [end]
-            else:
+            if start in self.graph:
                 self.graph[start].append(end)
+            else:  # If start not in self.graph
+                self.graph[start] = [end]
 
-    def get_paths(self, start, end, path=[]) -> list:
+    def dfs(self) -> list:
+        output = list()
+
+        for start in self.graph:
+            for node in self.graph[start]:
+                if node not in output:
+                    output.append(node)
+
+        return output
+
+    def get_paths(self, start, end, path=[]):
         path = path + [start]
 
         if start == end:
-            return path
+            return [path]
 
         if start not in self.graph:
             return None
@@ -46,7 +53,7 @@ class Graph:
 
         return paths
 
-    def get_shortest_path(self, start, end, path=[]) -> list:
+    def get_shortest_path(self, start, end, path=[]):
         path = path + [start]
 
         if start == end:
@@ -56,7 +63,7 @@ class Graph:
             return None
 
         shortest_path = None
-        for node in self.graph[start]:
+        for node in self.graph:
             if node not in path:
                 sp = self.get_shortest_path(node, end, path)
                 if sp:
@@ -64,6 +71,7 @@ class Graph:
                         shortest_path = sp
 
         return shortest_path
+
 
 flights = Graph(routes)
 
@@ -89,3 +97,4 @@ print(
     f"The shortest path from {start} to {end} is : {flights.get_shortest_path(start, end)}"
 )
 print()
+print(f"DFS {flights.dfs()}")
