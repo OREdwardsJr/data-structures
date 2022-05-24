@@ -39,7 +39,6 @@ print(has_path_bfs("f", "k", graph) == True)
 
 
 """ DEPTH FIRST SEARCH """
-"""
 #Iterative approach
 def has_path_dfs(start, end, graph) -> bool:
     stack = [start]
@@ -70,4 +69,3 @@ print(has_path_dfs("f", "h", graph) == True)
 print(has_path_dfs("f", "i", graph) == True)
 print(has_path_dfs("f", "j", graph) == False)
 print(has_path_dfs("f", "k", graph) == True)
-"""

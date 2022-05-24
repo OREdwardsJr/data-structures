@@ -12,7 +12,6 @@ for start, end in edges:
     graph[end].append(start)
 
 # Iterative
-"""
 def has_path(start, end, graph):
     visited = set()
     stack = [start]
@@ -27,7 +26,7 @@ def has_path(start, end, graph):
                 stack.append(elem)
 
     return False
-"""
+
 
 # Recursive
 def has_path(start, end, graph, visited=set()):
