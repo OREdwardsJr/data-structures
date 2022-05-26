@@ -14,7 +14,8 @@ class Solution:
             
             res.append(q[0])
             
-            if q[0] == nums[i-k+1]:
+            # Pop old element out of q if needed. 
+            if q[0] == nums[i-k+1]: #if q[0] == first number of the sliding window
                 q.popleft()
         
         return res
