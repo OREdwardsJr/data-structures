@@ -21,7 +21,7 @@ def components(graph) -> int:
     count = 0
 
     for node in graph:
-        if explore(graph, node, visited) == True:
+        if explore(graph, node, visited):
             count += 1
 
     return count
