@@ -1,15 +1,16 @@
 class Solution:
     def climbStairs(self, n: int) -> int:
         a, b = 0, 1
-        
+
         for i in range(n):
             a, b = b, a + b
-            
+
         return b
 
 
+print(Solution().climbStairs(1000))
 
-'''
+"""
 EASY
 
 You are climbing a staircase. It takes n steps to reach the top.
@@ -40,4 +41,4 @@ Constraints:
     1 <= n <= 45
 
 
-'''        
+"""
