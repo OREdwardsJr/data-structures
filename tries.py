@@ -1,4 +1,6 @@
 """
+link - https://www.youtube.com/watch?v=hjUJFjcrbR4
+
 class Trie:
   def __init__(self):
     self.root = {"*":"*"}
