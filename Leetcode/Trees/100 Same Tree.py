@@ -6,7 +6,17 @@
 #         self.right = right
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
         
+        if p.val == q.val:
+            return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+        
+        return False
+        
+        '''
         def same_nodes(node_1, node_2) -> bool:
             if not node_1 and node_2:
                 return False
@@ -30,7 +40,7 @@ class Solution:
             queue.extend([node_1.left, node_2.left, node_1.right, node_2.right])
             
         return True
-            
+        '''
 
 '''
 EASY
