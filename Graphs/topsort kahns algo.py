@@ -29,7 +29,7 @@ adj_list = defaultdict(list)
 
 for s, e in edges:
     if s == e:
-        adj_list[s] == []
+        adj_list[s] = []
     else:
         adj_list[s] += [e]
 
